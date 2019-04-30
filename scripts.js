@@ -1,15 +1,22 @@
 let today = moment() ;
-//let currentWeek =
 let currentMonth = today.month();
 let currentYear = today.year();
+let currentWeek = today.isoWeek();
 let selectYear = document.getElementById("year");
 let selectMonth = document.getElementById("month");
 
 let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 let monthAndYear = document.getElementById("monthAndYear");
-showCalendar(currentMonth, currentYear);
+let weekHeader = document.getElementById("week");
 
+showCalendar(currentMonth, currentYear);
+showWeek(currentWeek);
+
+//////////////////////////////
+///////////// Month /////////////////
+//////////////////////////////
+//////////////////////////////
 
 function next() {
     currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
@@ -33,7 +40,6 @@ function showCalendar(month, year) {
 
     // first day is default sunday so we substract 1
     let firstDay = moment(new Date(year, month)).day() - 1;
-    console.log(firstDay)
     firstDay = firstDay == -1 ? 6 : firstDay;
     let daysInMonth = 32 - moment(new Date(year, month, 32)).date();
 
@@ -67,9 +73,9 @@ function showCalendar(month, year) {
                 break;
             }
             // if saturday or sunday - skip cell
-            else if(day>4){
-              date++;
-              continue;
+            else if (day>4) {
+                date++;
+                continue;
             }
             // append days to drew on row
             else {
@@ -89,5 +95,45 @@ function showCalendar(month, year) {
 
         tbl.appendChild(row); // appending each row into calendar body.
     }
+
+}
+
+//////////////////////////////
+///////////// Week /////////////////
+//////////////////////////////
+//////////////////////////////
+
+// nextWeek
+
+// previousWeek
+
+// jumpWeek
+
+function showWeek(week) {
+  weekHeader.innerHTML = week
+
+  // get first day of week of month e.g. 28 (for monday)
+  firstDay = 28 // todo
+
+  tbl = document.getElementById("week-body")
+
+  date = firstDay
+  /// display logic in table
+  // loop over all days 5 0..5 i smaller 5
+
+  for (let day = 0; day < 5; day++) {
+      // creates row
+     let row = document.createElement("tr");
+     let cell = document.createElement("td");
+     let cellText = document.createTextNode(date);
+     cell.appendChild(cellText);
+     row.appendChild(cell);
+     date++
+  }
+
+
+  tbl.appendChild(row); // appending each row into calendar body.
+
+
 
 }
